@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: R00t!Pass#91     # mật khẩu root
+      MYSQL_DATABASE: app_data              # database mặc định
+      MYSQL_USER: db_admin                  # user app
+      MYSQL_PASSWORD: Adm!n#9876            # mật khẩu của user
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -udb_admin -pAdm!n#9876 --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  mysql_data:
