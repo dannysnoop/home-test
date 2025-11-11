@@ -37,20 +37,21 @@ SMTP_FROM="App Name <no-reply@example.com>"
 ## 🐳 Setup (Docker Compose)
 **1) Create `.env` in project root** (uses service names for hosts):
 ```env
+NODE_ENV=development
 PORT=8080
-DB_HOST=localhost
+
+DB_HOST=db
 DB_PORT=3306
 DB_USER=db_admin
-DB_PASSWORD=Adm!n#9876
+DB_PASSWORD='Adm!n#9876'
 DB_NAME=app_data
-REDIS_URL=redis://redis:6379
-# --- JWT ---
-JWT_SECRET=supersecret
+JWT_SECRET=super_secret_key_change_me
 JWT_EXPIRES_IN=86400
-JWT_RESET_SECRET=supersecret-reset
-JWT_RESET_EXPIRES=15m
-BASE_URL=http://localhost:8080
-GEO_KEY=geo:users:latest
+
+JWT_RESET_EXPIRES=900
+JWT_RESET_SECRET=super_secret_key_change_me1
+
+BASE_URL='http://nodejs:8080'
 
 
 # --- SMTP (for password reset / notifications) ---

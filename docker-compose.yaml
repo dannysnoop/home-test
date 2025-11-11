@@ -42,7 +42,7 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
-      REDIS_URL: redis://redis:6379
+      REDIS_URL: ${REDIS_URL}
     volumes:
       - .:/app
     env_file:
