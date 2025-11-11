@@ -73,28 +73,16 @@ curl http://localhost:8080/v1/health
 
 **4) DB migrations & seed (optional)**
 ```bash
-docker compose exec api npx ts-node src/scripts/db-migrate.ts
-docker compose exec api npx ts-node src/scripts/seed.ts
-```
+ docker compose exec nodejs npx ts-node src/scripts/seed.ts```
 
 **5) Logs & maintenance**
 ```bash
-docker compose logs -f api
-docker compose restart api
+docker compose logs -f nodejs
+docker compose restart nodejs
 docker compose down -v    # stops & removes volumes (resets DB)
 ```
 
----
 
-## ▶️ Run Locally (without Docker)
-```bash
-npm run dev
-# or (prod)
-npm run build && npm start
-```
-App URL: **http://localhost:8080**
-
----
 
 ## 🔑 API Endpoints (Summary)
 | Method | Endpoint | Description |
@@ -118,14 +106,38 @@ curl -X POST http://localhost:8080/v1/auth/register   -H "Content-Type: applicat
 ```
 **Login**
 ```bash
-curl -X POST http://localhost:8080/v1/auth/login   -H "Content-Type: application/json"   -d '{"email":"demo@example.com","password":"secret123"}'
+curl -X POST http://localhost:8080/v1/auth/login   -H "Content-Type: application/json"   -d '{"usernameOrEmail":"demo@example.com","password":"secret123"}'
 ```
 **Authorized request**
 ```bash
 TOKEN=your_access_token
 curl -X POST http://localhost:8080/v1/users/me/location   -H "Authorization: Bearer $TOKEN"   -H "Content-Type: application/json"   -d '{"lat":10.77,"lon":106.69}'
 ```
+**Search stores (authorized)**
+```bash
+TOKEN=your_access_token
+curl --location 'http://localhost:8080/v1/stores/search?lat=13.7367&lon=100.5232&radiusKm=6' \
+  --header "Authorization: Bearer $TOKEN"
 
+```
+**Add Favorite Store (authorized)**
+```bash
+TOKEN=your_access_token
+curl --location --request POST 'http://localhost:8080/v1/users/me/favorites/7584f80c-a794-4f31-be9a-debe0598de92' \
+  --header "Idempotency-Key: <unique_key>" \
+  --header "Authorization: Bearer $TOKEN" \
+  --data ''
+```
+
+
+
+**List Favorite Stores (authorized)**
+```bash
+TOKEN=your_access_token
+curl --location 'http://localhost:8080/v1/users/me/favorites' \
+  --header "Authorization: Bearer $TOKEN"
+  
+```
 ---
 
 ## 🧱 Stack
