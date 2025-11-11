@@ -7,31 +7,6 @@
 - Docker & Docker Compose ≥ v2 (recommended)
 
 ---
-
-## ⚙️ Setup (Local, no Docker)
-```bash
-yarn install
-cp .env.example .env
-```
-Edit `.env`:
-```env
-PORT=8080
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=db_admin
-DB_PASSWORD=Adm!n#9876
-DB_NAME=app_data
-REDIS_URL=redis://redis:6379
-JWT_SECRET=supersecret
-# --- SMTP (for password reset / notifications) ---
-SMTP_HOST=smtp.example.com
-SMTP_PORT=587
-SMTP_USER=your_smtp_user
-SMTP_PASS=your_smtp_pass
-SMTP_FROM="App Name <no-reply@example.com>"
-```
-```
-
 ---
 
 ## 🐳 Setup (Docker Compose)
