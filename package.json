@@ -8,7 +8,8 @@
     "build": "tsc -p tsconfig.json",
     "start": "node dist/server.js",
     "db:show:prog": "ts-node-dev --transpile-only src/scripts/db-show.ts",
-    "db:migrate": "ts-node-dev --transpile-only src/scripts/db-migrate.ts"
+    "db:migrate": "ts-node-dev --transpile-only src/scripts/db-migrate.ts",
+    "db:seed": "ts-node-dev --transpile-only src/scripts/seed.ts"
   },
   "repository": {
     "type": "git",

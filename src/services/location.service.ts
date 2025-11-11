@@ -49,13 +49,12 @@ export class LocationService {
             try {
                 const rec = this.historyRepo.create({ userId, lat, lon });
                 await this.historyRepo.save(rec);
+
             } catch (e) {
                 console.warn('[LocationService] history write failed:', e);
             }
         }
 
-        // 3) Realtime to room "user:{id}"
-        emitUserLocationUpdate(userId, { userId, lat, lon, ts });
     }
 
     /** Read user's latest from Redis (hash-first; no need to call GEOPOS if hash exists) */

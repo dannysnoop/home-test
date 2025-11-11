@@ -8,10 +8,11 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "typeRoots" : ["./src/types", "./node_modules/@types"]
+
   },
   "include": ["src"]
 }

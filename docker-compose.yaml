@@ -20,5 +20,11 @@ services:
       timeout: 3s
       retries: 20
 
+  redis:
+    image: redis:7.0
+    container_name: redis_container
+    restart: always
+    ports:
+      - "6379:6379"
 volumes:
   mysql_data:

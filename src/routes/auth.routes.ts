@@ -8,7 +8,7 @@ const router = Router();
 const RegisterSchema = z.object({
     body: z.object({
         username: z.string().min(3),
-        phone: z.string(),
+        email: z.string(),
         password: z.string().min(6),
     }),
 });

@@ -23,9 +23,7 @@ export class EmailService {
         }
     }
 
-    /**
-     * Gửi email chung
-     */
+
     async sendEmail(to: string, subject: string, html: string): Promise<void> {
         try {
             if (this.isDev || !this.transporter) {
@@ -49,9 +47,6 @@ export class EmailService {
             throw new Error('Failed to send email');
         }
     }
-    /**
-     * Gửi email đặt lại mật khẩu
-     */
      async sendPasswordResetEmail(to: string, link: string): Promise<void> {
         const subject = 'Reset your password';
         const html = `

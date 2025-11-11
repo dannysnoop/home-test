@@ -47,24 +47,6 @@ export class FavoriteService {
         await this.favRepo.delete({ userId, storeId });
     }
 
-    /** Toggle favorite; returns new state. */
-    async toggle(userId: string, storeId: string): Promise<{ favorite: boolean }> {
-        const exists = await this.favRepo.exist({ where: { userId, storeId } });
-        if (exists) {
-            await this.favRepo.delete({ userId, storeId });
-            return { favorite: false };
-        }
-        const fav = this.favRepo.create({ userId, storeId });
-        await this.favRepo.save(fav).catch((e) => {
-            if ((e as any)?.code !== 'ER_DUP_ENTRY') throw e;
-        });
-        return { favorite: true };
-    }
-
-    /** Check if a store is favorited by user. */
-    async exists(userId: string, storeId: string): Promise<boolean> {
-        return this.favRepo.exist({ where: { userId, storeId } });
-    }
 
     /** List favorites with store data (paginated, newest first). */
     async list(

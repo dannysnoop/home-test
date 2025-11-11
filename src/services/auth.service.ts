@@ -4,6 +4,7 @@ import { AppDataSource } from '../db/data-source';
 import { User } from '../entities/User';
 import { env } from '../config/env';
 import {emailService} from "./email.service";
+import {ERRORS} from "../constants/errors";
 
 const userRepo = AppDataSource.getRepository(User);
 
@@ -11,7 +12,7 @@ export class AuthService {
     // 🧩 REGISTER
     static async register(username: string, email: string, password: string) {
         const exists = await userRepo.findOne({ where: [{ username }, { email }] });
-        if (exists) throw new Error('User already exists');
+        if (exists) throw new Error(ERRORS.USER_ALREADY_EXIST);
 
         const passwordHash = await bcrypt.hash(password, 10);
         const user = userRepo.create({ username, email, passwordHash });
@@ -24,10 +25,10 @@ export class AuthService {
         const user = await userRepo.findOne({
             where: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
         });
-        if (!user) throw new Error('Invalid credentials');
+        if (!user) throw new Error(ERRORS.INVALID_CREDENTIALS);
 
         const valid = await bcrypt.compare(password, user.passwordHash);
-        if (!valid) throw new Error('Invalid credentials');
+        if (!valid) throw new Error(ERRORS.INVALID_CREDENTIALS);
 
         const token = jwt.sign(
             { id: user.id, username: user.username },
@@ -43,7 +44,7 @@ export class AuthService {
         const user = await userRepo.findOne({ where: { email } });
         // Không báo lỗi nếu email không tồn tại (tránh lộ thông tin)
         if (!user) {
-            throw new Error('Invalid credentials');
+            throw new Error(ERRORS.INVALID_CREDENTIALS);
         };
 
         // Tạo token tạm thời, chỉ dùng để reset password (hết hạn nhanh)

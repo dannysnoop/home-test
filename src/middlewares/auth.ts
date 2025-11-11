@@ -1,13 +1,14 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import { env } from '../config/env';
+import { ERRORS } from '../constants/errors';
 
-export type JwtUser = { sub: string; username: string; scope?: string };
+export type JwtUser = { id: string; username: string; scope?: string };
 
 export function authGuard(requiredScopes: string[] = []) {
     return (req: Request, res: Response, next: NextFunction) => {
         const h = req.headers.authorization;
-        if (!h?.startsWith('Bearer ')) return res.status(401).json({ error: 'Unauthorized' });
+        if (!h?.startsWith('Bearer ')) return res.status(401).json({ error:  ERRORS.UNAUTHORIZED });
         try {
             const user = jwt.verify(h.slice(7), env.JWT_SECRET) as JwtUser;
             (req as any).user = user;

@@ -2,7 +2,7 @@ import type { Server as HttpServer } from 'http';
 import { Server } from 'socket.io';
 import { verifyToken } from '../utils/jwt';
 
-type JwtUser = { sub: string; username: string };
+type JwtUser = { id: string; username: string };
 
 let io: Server | null = null;
 
@@ -27,11 +27,11 @@ export function initWebsocket(server: HttpServer) {
 
     io.on('connection', (socket) => {
         const user = socket.data.user as JwtUser;
-        const room = `user:${user.sub}`;
+        const room = `user:${user.id}`;
 
         // each user gets their own room for targeted pushes
         socket.join(room);
-        socket.emit('ready', { userId: user.sub });
+        socket.emit('ready', { userId: user.id });
 
         // optional: allow clients to follow other users (add your own auth checks)
         socket.on('subscribe:user', (targetId: string) => socket.join(`user:${targetId}`));

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import {StoreSearchService} from "./store-search.service";
+import {StoreSearchService} from "../services/store-search.service";
 
 const router = Router();
 const service = new StoreSearchService();
@@ -21,7 +21,7 @@ const QuerySchema = z.object({
 
 router.get('/stores/search', async (req, res) => {
     const parsed = QuerySchema.safeParse(req.query);
-    if (!parsed.success) return res.status(400).json({ error: parsed.error.flatten() });
+    if (!parsed.success) return res.status(400).json({ error: parsed.error });
 
     const data = parsed.data;
     const result = await service.search({

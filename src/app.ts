@@ -9,6 +9,7 @@ import locationRoutes from './routes/location.routes';
 import storeRoutes from './routes/store.routes';
 import favoriteRoutes from "./routes/favorite.routes";
 import { rateLimit } from './middlewares/rate-limit';
+import {idempotency} from "./middlewares/idempotency";
 
 
 
@@ -19,6 +20,7 @@ export function createApp() {
     app.use(express.json());
     app.use(...security);
     app.use(rateLimit);
+    app.use(idempotency); // or app.use(idempotency(redis)); if you require passing instance
 
     app.use('/v1', healthRoutes);
     app.use('/v1/auth', authRoutes);

@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { env } from '../config/env';
 
 export interface JwtPayload {
-    sub: number;
+    id: string;
     username: string;
 }
 
@@ -11,13 +11,11 @@ export function verifyToken(token: string): JwtPayload | null {
         const payload = jwt.verify(token, env.JWT_SECRET);
         if (
             typeof payload === 'object' &&
-            payload &&
-            'sub' in payload &&
-            'username' in payload
+            payload
         ) {
             return {
-                sub: Number((payload as any).sub),
-                username: String((payload as any).username),
+                id: payload.id,
+                username: payload.username,
             };
         }
         return null;

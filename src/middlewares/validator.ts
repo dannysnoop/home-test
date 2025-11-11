@@ -11,7 +11,7 @@ export function validate(schema: ZodObject) {
             });
             next();
         } catch (err: any) {
-            res.status(400).json({ error: err.errors });
+            res.status(400).json({ error: JSON.parse(err.message)  });
         }
     };
 }
