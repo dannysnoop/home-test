@@ -10,7 +10,7 @@
 
 ## ⚙️ Setup (Local, no Docker)
 ```bash
-npm install
+yarn install
 cp .env.example .env
 ```
 Edit `.env`:
@@ -18,10 +18,10 @@ Edit `.env`:
 PORT=8080
 DB_HOST=localhost
 DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=root
-DB_NAME=app
-REDIS_URL=redis://localhost:6379
+DB_USER=db_admin
+DB_PASSWORD=Adm!n#9876
+DB_NAME=app_data
+REDIS_URL=redis://redis:6379
 JWT_SECRET=supersecret
 # --- SMTP (for password reset / notifications) ---
 SMTP_HOST=smtp.example.com
@@ -38,11 +38,11 @@ SMTP_FROM="App Name <no-reply@example.com>"
 **1) Create `.env` in project root** (uses service names for hosts):
 ```env
 PORT=8080
-DB_HOST=mysql
+DB_HOST=localhost
 DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=root
-DB_NAME=app
+DB_USER=db_admin
+DB_PASSWORD=Adm!n#9876
+DB_NAME=app_data
 REDIS_URL=redis://redis:6379
 # --- JWT ---
 JWT_SECRET=supersecret
